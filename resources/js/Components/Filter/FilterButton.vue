@@ -30,7 +30,7 @@ const handleReset = () => {
         <template #overlay>
             <a-menu class="w-96 !px-0 !relative group">
                 <a-button
-                    class="!p-0 rounded-lg !w-6 !h-6 flex justify-center items-center border-0 hover:shadow-none hover:!bg-gray-200 absolute top-2 right-2 cursor-pointer z-50"
+                    class="!p-0 rounded-lg !w-6 !h-6 flex justify-center items-center border-0 hover:shadow-none hover:!bg-gray-100 absolute top-2 right-2 cursor-pointer z-50"
                     @click="() => open = false"
                 >
                     <font-awesome-icon icon="fa-xmark" class="text-lg text-gray-400" />
