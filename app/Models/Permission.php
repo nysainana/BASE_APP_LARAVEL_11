@@ -40,7 +40,7 @@ class Permission extends SpatiePermission
         [
             'key' => 'societe', 'label' => 'Gestion de la société', 'is_group' => true,
             'children' => [
-                ['key' => 'societe.index', 'label' => 'Afficher les informations de la société', 'routes' => ['societe.edit']],
+                ['key' => 'societe.edit', 'label' => 'Afficher les informations de la société', 'routes' => ['societe.edit']],
                 ['key' => 'societe.update', 'label' => 'Modifier société', 'routes' => ['societe.update']],
                 ['key' => 'societe.logo.upload', 'label' => 'Téléverser logo', 'routes' => ['societe.logo.upload']],
                 ['key' => 'societe.logo.delete', 'label' => 'Supprimer logo', 'routes' => ['societe.logo.delete']],

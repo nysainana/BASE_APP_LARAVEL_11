@@ -3,7 +3,7 @@ import { router } from '@inertiajs/vue3';
 import {defineProps, ref, onBeforeMount, computed, watch} from 'vue';
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import Avatar from "@/Components/Avatar.vue";
-import {useMenu} from "@/Composables/useMenu.js";
+import {useAppPage} from "@/Composables/useAppPage.js";
 
 const props = defineProps({
     selectedMenu: {
@@ -16,10 +16,8 @@ const collapsed = defineModel('collapsed')
 
 const openKeys = ref([]);
 
-const { menu, findParentMenu, generateBreadcrumb } = useMenu();
+const { menu, findParentMenu } = useAppPage();
 const filteredMenuData = computed(() => menu.value); // À utiliser quand on ajoutera un filtre sur le sidebar
-
-const emit = defineEmits(['update:breadcrumb'])
 
 function handleMenuCLick({ item, key, keyPath }) {
     if(item.routeName) {
@@ -36,13 +34,8 @@ const handleCollapse = (collapsed, type) => {
 }
 
 const handleMenuChange = () => {
-    const parent = findParentMenu(menu.value, props.selectedMenu);
+    const parent = findParentMenu(props.selectedMenu);
     if(parent) openKeys.value.push(parent.key);
-
-    const breadcrumbPath = generateBreadcrumb(menu.value, props.selectedMenu);
-    if (breadcrumbPath) {
-        emit('update:breadcrumb', breadcrumbPath);
-    }
 }
 
 onBeforeMount(() => {

@@ -59,7 +59,7 @@ const actions = [
 </script>
 
 <template>
-    <authenticated-layout title="Role utilisateurs" selected-menu="role-user" icon="fa-solid fa-user-group">
+    <authenticated-layout page-key="role-user.index">
         <template #actions>
             <ButtonIcon v-if="can('role-user.store')" @click="() => formModal.add()" type="primary" text="Créer une nouvelle role" icon="fa-plus"/>
         </template>

@@ -58,7 +58,7 @@ const actions = [
 </script>
 
 <template>
-    <authenticated-layout title="Utilisateurs" selected-menu="user" icon="fa-solid fa-user">
+    <authenticated-layout page-key="user.index">
         <template #actions>
             <ButtonIcon v-if="can('user.store')" @click="() => formModal.add()" type="primary" text="Créer un nouvel utilisateur" icon="fa-plus"/>
         </template>

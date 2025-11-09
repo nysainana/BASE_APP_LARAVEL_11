@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <AuthenticatedLayout title="Information société" selected-menu="societe-info" icon="fa-solid fa-building">
+    <AuthenticatedLayout page-key="societe.edit">
         <div class="flex flex-col gap-6 max-w-5xl mx-auto mt-20">
             <UpdateSocieteInfo :societe="societe" />
         </div>

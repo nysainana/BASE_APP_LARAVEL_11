@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-    <AuthenticatedLayout title="Profile" selected-menu="profile" icon="fa-solid fa-user">
+    <AuthenticatedLayout page-key="profile.edit">
         <div class="flex flex-col gap-6 max-w-5xl mx-auto mt-20">
             <UpdateProfileInformationForm />
             <UpdatePasswordForm />

@@ -19,7 +19,7 @@ defineProps({
 </script>
 
 <template>
-    <AuthenticatedLayout title="Dashboard" selected-menu="dashboard" icon="fa-solid fa-gauge">
+    <AuthenticatedLayout page-key="dashboard">
 
         <div class="mx-auto pb-8 flex flex-col gap-10">
             <WelcomeCard :user-name="userName" />

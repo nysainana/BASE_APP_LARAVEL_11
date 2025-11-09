@@ -1,23 +1,26 @@
 <script setup>
-import {defineProps, ref} from 'vue';
+import {computed, ref} from 'vue';
 import {Link} from '@inertiajs/vue3';
 import Layout from "@/Layouts/Layout.vue";
 import SideBar from "@/Layouts/Partials/SideBar.vue";
-
-const sidebarCollapsed = ref(false);
-const breadcrumb = ref([]);
+import {useAppPage} from "@/Composables/useAppPage.js";
 
 const props = defineProps({
-    title: String,
-    icon: {
+    pageKey: {
         type: String,
-        default: () => "fa-solid fa-circle",
-    },
-    selectedMenu: {
-        type: String,
-        default: () => ''
-    },
+        required: true
+    }
 })
+
+const { getPageConfig, generateBreadcrumb } = useAppPage();
+
+const pageData = computed(() => getPageConfig(props.pageKey));
+const title = computed(() => pageData.value?.label || '');
+const icon = computed(() => pageData.value?.icon || 'fa-solid fa-circle');
+const selectedMenu = computed(() => props.pageKey);
+const breadcrumb = computed(() => generateBreadcrumb(props.pageKey) || []);
+
+const sidebarCollapsed = ref(false);
 
 </script>
 
@@ -31,8 +34,8 @@ const props = defineProps({
             <side-bar
                 :selected-menu="selectedMenu"
                 v-model:collapsed="sidebarCollapsed"
-                @update:breadcrumb="(items) => breadcrumb = items"
             />
+
 
             <a-layout :class="{'lg:ml-[260px]': !sidebarCollapsed}">
                 <a-layout-content class="flex">
@@ -47,8 +50,16 @@ const props = defineProps({
                                     <h1 class="text-lg font-semibold">{{ title }}</h1>
                                     <a-breadcrumb v-if="breadcrumb.length > 0">
                                         <a-breadcrumb-item v-for="(item, index) in breadcrumb" :key="item.key" class="!text-gray-400 !text-xs">
-                                            <span v-if="index === breadcrumb.length - 1 || !item.routeName">{{ item.label }}</span>
-                                            <Link v-else :href="route(item.routeName)">{{ item.label }}</Link>
+                                            <span v-if="index === breadcrumb.length - 1 || !item.routeName">
+                                                {{ item.label }}
+                                            </span>
+                                            <Link
+                                                v-else
+                                                class="!h-auto hover:!bg-transparent hover:!text-primary hover:!underline"
+                                                :href="route(item.routeName)"
+                                            >
+                                                {{ item.label }}
+                                            </Link>
                                         </a-breadcrumb-item>
                                     </a-breadcrumb>
                                 </div>
