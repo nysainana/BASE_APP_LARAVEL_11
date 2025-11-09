@@ -1,7 +1,8 @@
 <script setup>
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import { Link } from '@inertiajs/vue3';
+import {Link} from '@inertiajs/vue3';
 import Layout from "@/Layouts/Layout.vue";
+import Avatar from "@/Components/Avatar.vue";
+
 </script>
 
 <template>
@@ -9,8 +10,11 @@ import Layout from "@/Layouts/Layout.vue";
         <div class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0">
             <div>
                 <Link href="/">
-                    <div class="main-rounded">
-                        <ApplicationLogo class="max-w-96 w-96 max-h-40" />
+                    <div class="mx-auto bg-white rounded-full p-2 shadow">
+                        <Avatar
+                            :src="$page.props.societe?.logo || '/logo.png'"
+                            :size="150"
+                        />
                     </div>
                 </Link>
             </div>
