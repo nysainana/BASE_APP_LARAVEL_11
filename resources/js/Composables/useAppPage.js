@@ -9,6 +9,7 @@ const pageConfig = [
         icon: "fa-solid fa-gauge",
         routeName: "dashboard",
         permission: "dashboard",
+        selectedMenu: "dashboard",
         navbarData: true,
     },
     {
@@ -23,6 +24,7 @@ const pageConfig = [
                 icon: "fa-solid fa-user-group",
                 routeName: "role-user.index",
                 permission: "role-user.index",
+                selectedMenu: "role-user.index",
                 navbarData: true,
             },
             {
@@ -31,6 +33,7 @@ const pageConfig = [
                 icon: "fa-solid fa-user",
                 routeName: "user.index",
                 permission: "user.index",
+                selectedMenu: "user.index",
                 navbarData: true,
             },
         ]
@@ -53,6 +56,7 @@ const pageConfig = [
                 icon: "fa-solid fa-building",
                 routeName: "societe.edit",
                 permission: "societe.edit",
+                selectedMenu: "societe.edit",
                 navbarData: true,
             },
         ]
@@ -68,7 +72,7 @@ const pageConfig = [
 
 export function useAppPage() {
 
-    function buildAndFilterMenu(items) {
+    function buildAndFilterMenu(items, hasParent = false) {
         return items.reduce((acc, item) => {
 
             if (!item.navbarData && !item.children?.length) {
@@ -82,20 +86,20 @@ export function useAppPage() {
 
             let processedChildren = undefined;
             if (item.children && item.children.length > 0) {
-                processedChildren = buildAndFilterMenu(item.children);
+                processedChildren = buildAndFilterMenu(item.children, item.type !== 'group');
                 if (processedChildren.length === 0 && !item.routeName && !item.navbarData) {
                     return acc;
                 }
             }
 
             const iconComponent = item.icon
-                ? h(FontAwesomeIcon, { icon: item.icon === '-' ? 'fa-solid fa-caret-right' : item.icon })
+                ? h(FontAwesomeIcon, { icon: (item.icon === '-' || hasParent) ? 'fa-solid fa-caret-right' : item.icon })
                 : null;
 
             acc.push({
                 ...item,
                 icon: iconComponent,
-                children: processedChildren,
+                children: processedChildren?.length ? processedChildren : null,
             });
             return acc;
         }, []);
