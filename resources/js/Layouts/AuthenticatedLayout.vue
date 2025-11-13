@@ -17,7 +17,7 @@ const { getPageConfig, generateBreadcrumb } = useAppPage();
 const pageData = computed(() => getPageConfig(props.pageKey));
 const title = computed(() => pageData.value?.label || '');
 const icon = computed(() => pageData.value?.icon || 'fa-solid fa-circle');
-const selectedMenu = computed(() => props.pageKey);
+const selectedMenu = computed(() => pageData.value.selectedMenu);
 const breadcrumb = computed(() => generateBreadcrumb(props.pageKey) || []);
 
 const sidebarCollapsed = ref(false);
